@@ -71,7 +71,7 @@ static JLScreenRecorder *sharedInstance;
 {
     self = [super init];
     if (self) {
-        _viewSize = CGSizeMake([UIApplication sharedApplication].delegate.window.bounds.size.width, [UIApplication sharedApplication].delegate.window.bounds.size.height - 40 -128);
+        _viewSize = CGSizeMake([UIApplication sharedApplication].delegate.window.bounds.size.width, [UIApplication sharedApplication].delegate.window.bounds.size.height - self.buttom_edge);
         _scale = [UIScreen mainScreen].scale;
         // record half size resolution for retina iPads
         if ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) && _scale > 1) {
@@ -285,7 +285,7 @@ static JLScreenRecorder *sharedInstance;
 
         dispatch_sync(dispatch_get_main_queue(), ^{
             UIGraphicsPushContext(bitmapContext); {
-                [[UIApplication sharedApplication].keyWindow drawViewHierarchyInRect:CGRectMake(0, -40, _viewSize.width, [UIScreen mainScreen].bounds.size.height) afterScreenUpdates:NO];
+                [[UIApplication sharedApplication].keyWindow drawViewHierarchyInRect:CGRectMake(0, -self.top_edge, _viewSize.width, [UIScreen mainScreen].bounds.size.height) afterScreenUpdates:NO];
 //                [self.image_water drawInRect:CGRectMake(20, 20, 89.5 , 37.5 ) blendMode:kCGBlendModeNormal alpha:1]; // 可以加水印图片
                 
             } UIGraphicsPopContext();

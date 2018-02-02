@@ -61,6 +61,7 @@
     self.button_record = button_record;
     
     [self.view addSubview:button_record];
+    
     [button_record setBackgroundImage:[UIImage imageNamed:@"photo"] forState:UIControlStateNormal];
     [button_record setBackgroundImage:[UIImage imageNamed:@"photo_active"] forState:UIControlStateHighlighted];
     [button_record sizeToFit];
@@ -288,7 +289,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection {
     
     [self.openGLView processWithSampleBuffer:sampleBuffer];
-    
+
 }
 
 @end
