@@ -13,6 +13,12 @@
 		817417A02024098F002423D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8174179F2024098F002423D3 /* Assets.xcassets */; };
 		817417A32024098F002423D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 817417A12024098F002423D3 /* LaunchScreen.storyboard */; };
 		817417A62024098F002423D3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417A52024098F002423D3 /* main.m */; };
+		817417B320240F91002423D3 /* JLCaptureUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417AD20240F90002423D3 /* JLCaptureUtilities.m */; };
+		817417B420240F91002423D3 /* JLScreenRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417AE20240F90002423D3 /* JLScreenRecorder.m */; };
+		817417B520240F91002423D3 /* JLAudioRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417B120240F90002423D3 /* JLAudioRecord.m */; };
+		817417B820240FA1002423D3 /* OpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417B720240FA1002423D3 /* OpenGLView.m */; };
+		817417BF2024128D002423D3 /* HiARCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417BE2024128D002423D3 /* HiARCapture.m */; };
+		817417C220241BD1002423D3 /* UIView+UIView___Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417C020241BD1002423D3 /* UIView+UIView___Extension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +32,19 @@
 		817417A22024098F002423D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		817417A42024098F002423D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		817417A52024098F002423D3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		817417AD20240F90002423D3 /* JLCaptureUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLCaptureUtilities.m; sourceTree = "<group>"; };
+		817417AE20240F90002423D3 /* JLScreenRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLScreenRecorder.m; sourceTree = "<group>"; };
+		817417AF20240F90002423D3 /* JLScreenRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLScreenRecorder.h; sourceTree = "<group>"; };
+		817417B020240F90002423D3 /* JLCaptureUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLCaptureUtilities.h; sourceTree = "<group>"; };
+		817417B120240F90002423D3 /* JLAudioRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLAudioRecord.m; sourceTree = "<group>"; };
+		817417B220240F91002423D3 /* JLAudioRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLAudioRecord.h; sourceTree = "<group>"; };
+		817417B620240FA1002423D3 /* OpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLView.h; sourceTree = "<group>"; };
+		817417B720240FA1002423D3 /* OpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenGLView.m; sourceTree = "<group>"; };
+		817417BC2024128C002423D3 /* HiARCapturePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiARCapturePreview.h; sourceTree = "<group>"; };
+		817417BD2024128C002423D3 /* HiARCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiARCapture.h; sourceTree = "<group>"; };
+		817417BE2024128D002423D3 /* HiARCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiARCapture.m; sourceTree = "<group>"; };
+		817417C020241BD1002423D3 /* UIView+UIView___Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+UIView___Extension.m"; sourceTree = "<group>"; };
+		817417C120241BD1002423D3 /* UIView+UIView___Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UIView___Extension.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,10 +77,16 @@
 		817417952024098F002423D3 /* JLScreenRecordDemo */ = {
 			isa = PBXGroup;
 			children = (
+				817417AC20240E72002423D3 /* JLScreenRecordKit */,
 				817417962024098F002423D3 /* AppDelegate.h */,
 				817417972024098F002423D3 /* AppDelegate.m */,
 				817417992024098F002423D3 /* ViewController.h */,
 				8174179A2024098F002423D3 /* ViewController.m */,
+				817417BD2024128C002423D3 /* HiARCapture.h */,
+				817417BE2024128D002423D3 /* HiARCapture.m */,
+				817417BC2024128C002423D3 /* HiARCapturePreview.h */,
+				817417C120241BD1002423D3 /* UIView+UIView___Extension.h */,
+				817417C020241BD1002423D3 /* UIView+UIView___Extension.m */,
 				8174179C2024098F002423D3 /* Main.storyboard */,
 				8174179F2024098F002423D3 /* Assets.xcassets */,
 				817417A12024098F002423D3 /* LaunchScreen.storyboard */,
@@ -69,6 +94,21 @@
 				817417A52024098F002423D3 /* main.m */,
 			);
 			path = JLScreenRecordDemo;
+			sourceTree = "<group>";
+		};
+		817417AC20240E72002423D3 /* JLScreenRecordKit */ = {
+			isa = PBXGroup;
+			children = (
+				817417B620240FA1002423D3 /* OpenGLView.h */,
+				817417B720240FA1002423D3 /* OpenGLView.m */,
+				817417B220240F91002423D3 /* JLAudioRecord.h */,
+				817417B120240F90002423D3 /* JLAudioRecord.m */,
+				817417B020240F90002423D3 /* JLCaptureUtilities.h */,
+				817417AD20240F90002423D3 /* JLCaptureUtilities.m */,
+				817417AF20240F90002423D3 /* JLScreenRecorder.h */,
+				817417AE20240F90002423D3 /* JLScreenRecorder.m */,
+			);
+			path = JLScreenRecordKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,9 +182,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				817417BF2024128D002423D3 /* HiARCapture.m in Sources */,
 				8174179B2024098F002423D3 /* ViewController.m in Sources */,
+				817417B320240F91002423D3 /* JLCaptureUtilities.m in Sources */,
 				817417A62024098F002423D3 /* main.m in Sources */,
+				817417B420240F91002423D3 /* JLScreenRecorder.m in Sources */,
 				817417982024098F002423D3 /* AppDelegate.m in Sources */,
+				817417B820240FA1002423D3 /* OpenGLView.m in Sources */,
+				817417C220241BD1002423D3 /* UIView+UIView___Extension.m in Sources */,
+				817417B520240F91002423D3 /* JLAudioRecord.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
