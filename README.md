@@ -15,9 +15,9 @@ ios screenRecord
 缺点 : cpu消耗有点大 50%左右
 
 demo中有示例非常简单使用
-1. 开始录制 [[JLScreenRecorder sharedInstance]startRecording];
+1. 开始录制 [[JLRecorderManager sharedInstance]startRecording];
 
-2. 结束录制  [[JLScreenRecorder sharedInstance]stopRecordingWithCompletion:^(NSString *path) {
+2. 结束录制  [[JLRecorderManager sharedInstance]stopRecordingWithCompletion:^(NSString *path) {
 
 
 

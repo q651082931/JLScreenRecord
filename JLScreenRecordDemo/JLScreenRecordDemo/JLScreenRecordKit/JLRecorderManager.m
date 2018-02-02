@@ -80,7 +80,7 @@ static JLRecorderManager * sharedInstance;
     __weak typeof(self) weakSelf = self;
     [self.screenRecord stopRecordingWithCompletion:^(NSURL *vedioUrl) {
        
-            [JLCaptureUtilities mergeVideo:vedioUrl andAudio:weakSelf.audioRecord.recordFilePath andTarget:weakSelf andAction:@selector(mergedidFinish:WithError:)];
+        [JLCaptureUtilities mergeVideo:vedioUrl andAudio:weakSelf.audioRecord.recordFilePath andTarget:weakSelf andAction:@selector(mergedidFinish:WithError:)];
         [weakSelf.screenRecord clearFile];
         
     }];

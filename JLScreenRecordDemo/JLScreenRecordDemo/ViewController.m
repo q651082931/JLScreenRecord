@@ -72,6 +72,10 @@
     
 }
 
+- (void)dealloc{
+    [self deinitCamera];
+    [[JLRecorderManager sharedInstance] clear];
+}
 - (void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     
@@ -101,10 +105,6 @@
     
     [self.capture stop];
     
-}
-- (void)dealloc{
-    
-    [self deinitCamera];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
