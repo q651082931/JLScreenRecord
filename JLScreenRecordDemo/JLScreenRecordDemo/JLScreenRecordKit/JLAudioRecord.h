@@ -19,4 +19,5 @@
 - (void)beginRecord;
 - (void)endRecord;
 - (void)clearAudioFile;
+- (void)prepareRecord;
 @end

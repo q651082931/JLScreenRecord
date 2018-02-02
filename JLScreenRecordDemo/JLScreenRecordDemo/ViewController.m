@@ -38,7 +38,7 @@
     
 }
 - (void)initView{
-    
+    [JLScreenRecorder sharedInstance];
     [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
     
 
@@ -185,13 +185,11 @@
         openGLView.backgroundColor = [UIColor blackColor];
         
         _captureQueue = dispatch_queue_create("com.captureSesstionQueue", DISPATCH_QUEUE_SERIAL);
-        self.capture = [[HiARCapture alloc] initWithSessionPreset:AVCaptureSessionPreset640x480
+        self.capture = [[HiARCapture alloc] initWithSessionPreset:AVCaptureSessionPreset1280x720
                                                    devicePosition:AVCaptureDevicePositionBack
                                                      sessionQueue:_captureQueue];
+        [self configCaptureVideoDataOutput];
         
-        dispatch_async( _captureQueue, ^{
-            [self configCaptureVideoDataOutput];
-        });
     }
 }
 

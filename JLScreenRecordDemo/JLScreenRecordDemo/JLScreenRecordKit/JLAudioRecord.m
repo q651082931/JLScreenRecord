@@ -16,6 +16,7 @@ static NSString * const  JLAudio =  @"JLAudio";
 - (void)beginRecord{
     
     [self clearAudioFile];
+    [self prepareRecord];
     //初始化录音
     AVAudioRecorder * audioRecorder = [[AVAudioRecorder alloc]initWithURL:[NSURL URLWithString:[self.recordFilePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]
                                                        settings:[self getAudioRecorderSettingDict]
@@ -24,10 +25,17 @@ static NSString * const  JLAudio =  @"JLAudio";
     
     [self.audioRecorder prepareToRecord];
 
+   
+    
+    [self.audioRecorder record];
+}
+
+- (void)prepareRecord{
+    
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayAndRecord error:nil];
     [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
-    [self.audioRecorder record];
+    
 }
 
 - (NSString *)recordFilePath{
