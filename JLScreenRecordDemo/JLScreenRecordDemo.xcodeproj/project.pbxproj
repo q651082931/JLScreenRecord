@@ -23,6 +23,7 @@
 		817417D420244A99002423D3 /* vertex.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 817417CF20244A98002423D3 /* vertex.vsh */; };
 		817417D520244A99002423D3 /* AGLKVertexAttribArrayBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417D020244A98002423D3 /* AGLKVertexAttribArrayBuffer.m */; };
 		817417D620244A99002423D3 /* fragment.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 817417D220244A98002423D3 /* fragment.fsh */; };
+		817417D820245124002423D3 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 817417D720245123002423D3 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		817417D020244A98002423D3 /* AGLKVertexAttribArrayBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLKVertexAttribArrayBuffer.m; sourceTree = "<group>"; };
 		817417D120244A98002423D3 /* glViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glViewController.h; path = "../../../../Downloads/OpenGLES_DEMO-master/deleteLater——openGLES/glViewController.h"; sourceTree = "<group>"; };
 		817417D220244A98002423D3 /* fragment.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = fragment.fsh; sourceTree = "<group>"; };
+		817417D720245123002423D3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				817417A12024098F002423D3 /* LaunchScreen.storyboard */,
 				817417A42024098F002423D3 /* Info.plist */,
 				817417A52024098F002423D3 /* main.m */,
+				817417D720245123002423D3 /* README.md */,
 			);
 			path = JLScreenRecordDemo;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				817417D820245124002423D3 /* README.md in Resources */,
 				817417A32024098F002423D3 /* LaunchScreen.storyboard in Resources */,
 				817417A02024098F002423D3 /* Assets.xcassets in Resources */,
 				8174179E2024098F002423D3 /* Main.storyboard in Resources */,

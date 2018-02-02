@@ -24,5 +24,6 @@ demo中有示例非常简单使用
 }];
 
 其中项目中用到的立方体渲染是 https://github.com/holyHbw/OpenGLES_DEMO
-这个项目的,多谢作者贡献
+参考资料 ASScreenRecorder https://github.com/alskipp/ASScreenRecorder
+多谢作者贡献
 如果有issue可以反馈给我多谢.
