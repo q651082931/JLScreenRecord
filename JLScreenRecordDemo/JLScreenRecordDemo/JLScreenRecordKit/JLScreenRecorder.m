@@ -7,9 +7,8 @@
 #import "JLAudioRecord.h"
 #import "JLCaptureUtilities.h"
 
-#define VEDIOPATH @"vedioPath"
 
-@interface JLScreenRecorder()
+@interface JLScreenRecorder()<JLAudioRecordDelegate>
 
 @property (strong, nonatomic) AVAssetWriter *videoWriter;
 @property (strong, nonatomic) AVAssetWriterInput *videoWriterInput;
@@ -19,7 +18,6 @@
 @property (nonatomic) CFTimeInterval firstTimeStamp;
 @property (nonatomic) BOOL isRecording;
 @property(nonatomic,strong) JLAudioRecord * audioRecord;
-@property(nonatomic,copy) NSString * voicePath;
 @property(nonatomic,copy) VideoCompletionBlock completionBlock;
 @property(nonatomic,strong)UIImage * image_water;
 
@@ -41,16 +39,34 @@
 }
 
 #pragma mark - initializers
-
+static dispatch_once_t once;
+static JLScreenRecorder *sharedInstance;
 + (instancetype)sharedInstance {
-    static dispatch_once_t once;
-    static JLScreenRecorder *sharedInstance;
+    
+    
     dispatch_once(&once, ^{
         sharedInstance = [[self alloc] init];
     });
     return sharedInstance;
 }
++ (void)clear{
+    once = 0;
+    sharedInstance = nil;
+    
+}
 
+- (void)clearFile{
+    
+    if ([[NSFileManager defaultManager]fileExistsAtPath:self.videoURL.absoluteString]) {
+        
+        [[NSFileManager defaultManager]removeItemAtPath:self.videoURL.absoluteString error:nil];
+    }
+    
+    if ([[NSFileManager defaultManager]fileExistsAtPath:[self tempFileURL].absoluteString]) {
+        
+        [[NSFileManager defaultManager]removeItemAtPath:[self tempFileURL].absoluteString error:nil];
+    }
+}
 - (instancetype)init
 {
     self = [super init];
@@ -97,12 +113,8 @@
         }
         
         [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        if ([fileManager fileExistsAtPath:self.voicePath]){
-            [fileManager removeItemAtPath:self.voicePath error:nil];
-        }
 
-        [self.audioRecord beginRecordByFileName:VEDIOPATH];
+        [self.audioRecord beginRecord];
     }
     return _isRecording;
 }
@@ -121,24 +133,12 @@
     
     if (_audioRecord == nil) {
         _audioRecord = [[JLAudioRecord alloc]init];
-        _audioRecord.recorder.delegate=self;
         _audioRecord.delegate=self;
     }
     
     return _audioRecord;
 }
 
-- (NSString *)voicePath{
-    
-    
-    if (_voicePath == nil) {
-        
-        NSString* fileDirectory = [[[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)objectAtIndex:0]stringByAppendingPathComponent:VEDIOPATH]stringByAppendingPathExtension:@"wav"];
-        _voicePath = fileDirectory;
-        
-    }
-    return _voicePath;
-}
 #pragma mark - private
 
 -(void)setUpWriter
@@ -235,12 +235,10 @@
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
-                        [JLCaptureUtilities mergeVideo:_videoWriter.outputURL andAudio:self.voicePath andTarget:self andAction:@selector(mergedidFinish:WithError:)];
+                        [JLCaptureUtilities mergeVideo:_videoWriter.outputURL andAudio:self.audioRecord.recordFilePath andTarget:self andAction:@selector(mergedidFinish:WithError:)];
                     
                 });
 
-
-                
             }];
         });
     });
@@ -269,10 +267,7 @@
 
 - (void)writeVideoFrame
 {
-    
-    
-    // throttle the number of frames to prevent meltdown
-    // technique gleaned from Brad Larson's answer here: http://stackoverflow.com/a/5956119
+
     if (dispatch_semaphore_wait(_frameRenderingSemaphore, DISPATCH_TIME_NOW) != 0) {
         return;
     }
@@ -287,24 +282,15 @@
         
         CVPixelBufferRef pixelBuffer = NULL;
         CGContextRef bitmapContext = [self createPixelBufferAndBitmapContext:&pixelBuffer];
-        
-//        if (self.delegate) {
-//            [self.delegate writeBackgroundFrameInContext:&bitmapContext];
-//        }
-        // draw each window into the context (other windows include UIKeyboard, UIAlert)
-        // FIX: UIKeyboard is currently only rendered correctly in portrait orientation
+
         dispatch_sync(dispatch_get_main_queue(), ^{
             UIGraphicsPushContext(bitmapContext); {
                 [[UIApplication sharedApplication].keyWindow drawViewHierarchyInRect:CGRectMake(0, -40, _viewSize.width, [UIScreen mainScreen].bounds.size.height) afterScreenUpdates:NO];
-                [self.image_water drawInRect:CGRectMake(20, 20, 89.5 , 37.5 ) blendMode:kCGBlendModeNormal alpha:1];
+//                [self.image_water drawInRect:CGRectMake(20, 20, 89.5 , 37.5 ) blendMode:kCGBlendModeNormal alpha:1]; // 可以加水印图片
                 
             } UIGraphicsPopContext();
         });
-        
-        // append pixelBuffer on a async dispatch_queue, the next frame is rendered whilst this one appends
-        // must not overwhelm the queue with pixelBuffers, therefore:
-        // check if _append_pixelBuffer_queue is ready
-        // if it’s not ready, release pixelBuffer and bitmapContext
+
         if (dispatch_semaphore_wait(_pixelAppendSemaphore, DISPATCH_TIME_NOW) == 0) {
             dispatch_async(_append_pixelBuffer_queue, ^{
                 BOOL success = [_avAdaptor appendPixelBuffer:pixelBuffer withPresentationTime:time];
@@ -345,5 +331,4 @@
     
     return bitmapContext;
 }
-
 @end

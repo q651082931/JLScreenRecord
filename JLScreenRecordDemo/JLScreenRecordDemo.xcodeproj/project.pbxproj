@@ -45,7 +45,6 @@
 		817417B220240F91002423D3 /* JLAudioRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLAudioRecord.h; sourceTree = "<group>"; };
 		817417B620240FA1002423D3 /* OpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLView.h; sourceTree = "<group>"; };
 		817417B720240FA1002423D3 /* OpenGLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenGLView.m; sourceTree = "<group>"; };
-		817417BC2024128C002423D3 /* HiARCapturePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiARCapturePreview.h; sourceTree = "<group>"; };
 		817417BD2024128C002423D3 /* HiARCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HiARCapture.h; sourceTree = "<group>"; };
 		817417BE2024128D002423D3 /* HiARCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiARCapture.m; sourceTree = "<group>"; };
 		817417C020241BD1002423D3 /* UIView+UIView___Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+UIView___Extension.m"; sourceTree = "<group>"; };
@@ -96,7 +95,6 @@
 				8174179A2024098F002423D3 /* ViewController.m */,
 				817417BD2024128C002423D3 /* HiARCapture.h */,
 				817417BE2024128D002423D3 /* HiARCapture.m */,
-				817417BC2024128C002423D3 /* HiARCapturePreview.h */,
 				817417C120241BD1002423D3 /* UIView+UIView___Extension.h */,
 				817417C020241BD1002423D3 /* UIView+UIView___Extension.m */,
 				817417CD20244A97002423D3 /* AGLKVertexAttribArrayBuffer.h */,
@@ -351,6 +349,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9Q2JNSZV5H;
 				INFOPLIST_FILE = JLScreenRecordDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = hiscene.JLScreenRecordDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -365,6 +364,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9Q2JNSZV5H;
 				INFOPLIST_FILE = JLScreenRecordDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = hiscene.JLScreenRecordDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

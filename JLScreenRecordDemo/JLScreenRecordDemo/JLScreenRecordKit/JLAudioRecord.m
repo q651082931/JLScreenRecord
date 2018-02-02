@@ -3,31 +3,49 @@
 #import "JLAudioRecord.h"
 
 
+static NSString * const  JLAudio =  @"JLAudio";
+@interface JLAudioRecord()
+
+@property (retain, nonatomic)   AVAudioRecorder     * audioRecorder;
+@end
+
 @implementation JLAudioRecord
-@synthesize recorder,recordFileName,recordFilePath,delegate;
+
 
 #pragma mark - 开始录音
-- (void)beginRecordByFileName:(NSString*)_fileName;{
+- (void)beginRecord{
     
-    recordFileName = _fileName;
-    //设置文件名和录音路径
-    recordFilePath = [self getPathByFileName:recordFileName ofType:@"wav"];
+    [self clearAudioFile];
     //初始化录音
-    AVAudioRecorder *temp = [[AVAudioRecorder alloc]initWithURL:[NSURL URLWithString:[recordFilePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]
+    AVAudioRecorder * audioRecorder = [[AVAudioRecorder alloc]initWithURL:[NSURL URLWithString:[self.recordFilePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]
                                                        settings:[self getAudioRecorderSettingDict]
                                                           error:nil];
-    self.recorder = temp;
+    self.audioRecorder = audioRecorder;
     
-    [self.recorder prepareToRecord];
-
-//    [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryMultiRoute error:nil];
+    [self.audioRecorder prepareToRecord];
 
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
-
-    
     [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayAndRecord error:nil];
     [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
-    [self.recorder record];
+    [self.audioRecorder record];
+}
+
+- (NSString *)recordFilePath{
+    
+    if (_recordFilePath.length == 0) {
+        //设置文件名和录音路径
+        _recordFilePath = [self getPathByFileName:JLAudio ofType:@"wav"];
+    }
+    return _recordFilePath;
+    
+}
+- (void)clearAudioFile{
+    
+    
+    if ([[NSFileManager defaultManager]fileExistsAtPath:self.recordFilePath]) {
+        
+        [[NSFileManager defaultManager]removeItemAtPath:self.recordFilePath error:nil];
+    }
 }
 
 #pragma mark - 开始或结束
@@ -44,23 +62,23 @@
 
 #pragma mark - 录音开始
 -(void)startRecord{
-    [self.recorder record];
+    [self.audioRecorder record];
     _nowPause=NO;
 }
 
 #pragma mark - 录音暂停
 -(void)pauseRecord{
-    if (self.recorder.isRecording) {
-        [self.recorder pause];
+    if (self.audioRecorder.isRecording) {
+        [self.audioRecorder pause];
         _nowPause=YES;
     }
 }
 
 #pragma mark - 录音结束
 - (void)endRecord{
-    if (self.recorder.isRecording||(!self.recorder.isRecording&&_nowPause)) {
-        [self.recorder stop];
-        self.recorder = nil;
+    if (self.audioRecorder.isRecording||(!self.audioRecorder.isRecording&&_nowPause)) {
+        [self.audioRecorder stop];
+        self.audioRecorder = nil;
         
         if ([self.delegate respondsToSelector:@selector(wavComplete)]) {
             [self.delegate wavComplete];

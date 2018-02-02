@@ -12,11 +12,11 @@
 
 @interface JLAudioRecord : NSObject
 
-@property (retain, nonatomic)   AVAudioRecorder     *recorder;
-@property (copy, nonatomic)     NSString            *recordFileName;//录音文件名
-@property (copy, nonatomic)     NSString            *recordFilePath;//录音文件路径
+
+@property (copy, nonatomic)     NSString  *recordFilePath;//录音文件路径
 @property (assign,nonatomic) BOOL nowPause;
 @property (nonatomic, assign) id<JLAudioRecordDelegate>delegate;
-- (void)beginRecordByFileName:(NSString*)_fileName;
+- (void)beginRecord;
 - (void)endRecord;
+- (void)clearAudioFile;
 @end
