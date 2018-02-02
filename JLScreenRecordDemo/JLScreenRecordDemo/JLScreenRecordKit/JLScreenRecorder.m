@@ -3,12 +3,11 @@
 #import "JLScreenRecorder.h"
 #import <AVFoundation/AVFoundation.h>
 #import <QuartzCore/QuartzCore.h>
-#import <AssetsLibrary/AssetsLibrary.h>
-#import "JLAudioRecord.h"
+
 #import "JLCaptureUtilities.h"
 
 
-@interface JLScreenRecorder()<JLAudioRecordDelegate>
+@interface JLScreenRecorder()
 
 @property (strong, nonatomic) AVAssetWriter *videoWriter;
 @property (strong, nonatomic) AVAssetWriterInput *videoWriterInput;
@@ -17,7 +16,7 @@
 @property (strong, nonatomic) NSDictionary *outputBufferPoolAuxAttributes;
 @property (nonatomic) CFTimeInterval firstTimeStamp;
 @property (nonatomic) BOOL isRecording;
-@property(nonatomic,strong) JLAudioRecord * audioRecord;
+
 @property(nonatomic,copy) VideoCompletionBlock completionBlock;
 @property(nonatomic,strong)UIImage * image_water;
 
@@ -38,22 +37,7 @@
     CVPixelBufferPoolRef _outputBufferPool;
 }
 
-#pragma mark - initializers
-static dispatch_once_t once;
-static JLScreenRecorder *sharedInstance;
-+ (instancetype)sharedInstance {
-    
-    
-    dispatch_once(&once, ^{
-        sharedInstance = [[self alloc] init];
-    });
-    return sharedInstance;
-}
-+ (void)clear{
-    once = 0;
-    sharedInstance = nil;
-    
-}
+
 
 - (void)clearFile{
     
@@ -90,7 +74,7 @@ static JLScreenRecorder *sharedInstance;
         self.maxRecordTime = 60;
         
         [self setUpWriter];
-        [self.audioRecord prepareRecord];
+        
     }
     return self;
 }
@@ -110,38 +94,49 @@ static JLScreenRecorder *sharedInstance;
         _isRecording = (_videoWriter.status == AVAssetWriterStatusWriting);
         _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(writeVideoFrame)];
         
-        if ([[UIDevice currentDevice].systemVersion doubleValue] >= 10) {
+        if (@available(iOS 10.0, *)) {
             [_displayLink setPreferredFramesPerSecond:30];
-        }else{
+        } else {
             _displayLink.frameInterval = 2;
-            
         }
-        
+    
         [_displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
 
-        [self.audioRecord beginRecord];
+        
     }
     return _isRecording;
 }
 
-- (void)stopRecordingWithCompletion:(VideoCompletionBlock)completionBlock;
+- (void)stopRecordingWithCompletion:(void (^)(NSURL * vedioUrl))completionBlock;
 {
     if (_isRecording) {
         _isRecording = NO;
         [_displayLink removeFromRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
-        [self.audioRecord endRecord];
-        [self completeRecordingSession:completionBlock];
+        [_displayLink invalidate];
+        _displayLink = nil;
+        dispatch_async(_render_queue, ^{
+            dispatch_sync(_append_pixelBuffer_queue, ^{
+                
+                [_videoWriterInput markAsFinished];
+                [_videoWriter finishWritingWithCompletionHandler:^{
+                    
+                    
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        
+                        
+                        if (completionBlock) {
+                            completionBlock(_videoWriter.outputURL);
+                        }
+                        
+                        [self cleanup];
+                        
+                    });
+                    
+                }];
+            });
+        });
     }
-}
-
-- (JLAudioRecord *)audioRecord{
-    
-    if (_audioRecord == nil) {
-        _audioRecord = [[JLAudioRecord alloc]init];
-        _audioRecord.delegate=self;
-    }
-    
-    return _audioRecord;
 }
 
 #pragma mark - private
@@ -226,37 +221,8 @@ static JLScreenRecorder *sharedInstance;
     }
 }
 
-- (void)completeRecordingSession:(VideoCompletionBlock)completionBlock;
-{
-    
-    self.completionBlock = completionBlock;
-    dispatch_async(_render_queue, ^{
-        dispatch_sync(_append_pixelBuffer_queue, ^{
-            
-            [_videoWriterInput markAsFinished];
-            [_videoWriter finishWritingWithCompletionHandler:^{
-                
-                
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    
-                        [JLCaptureUtilities mergeVideo:_videoWriter.outputURL andAudio:self.audioRecord.recordFilePath andTarget:self andAction:@selector(mergedidFinish:WithError:)];
-                    
-                });
 
-            }];
-        });
-    });
-}
-- (void)mergedidFinish:(NSString *)videoPath WithError:(NSError *)error
-{
-        
-    
-    [self cleanup];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        if (self.completionBlock) self.completionBlock(videoPath);
-    });
-}
+
 
 
 - (void)cleanup
@@ -336,4 +302,6 @@ static JLScreenRecorder *sharedInstance;
     
     return bitmapContext;
 }
+
+
 @end

@@ -6,7 +6,7 @@
 static NSString * const  JLAudio =  @"JLAudio";
 @interface JLAudioRecord()
 
-@property (retain, nonatomic)   AVAudioRecorder     * audioRecorder;
+@property (strong, nonatomic)   AVAudioRecorder     * audioRecorder;
 @end
 
 @implementation JLAudioRecord
@@ -56,17 +56,6 @@ static NSString * const  JLAudio =  @"JLAudio";
     }
 }
 
-#pragma mark - 开始或结束
--(void)toRecordOrPause:(NSNotification*)sender
-{
-    NSString* str=(NSString*)[sender object];
-    if ([str intValue]) {
-        [self startRecord];
-    }
-    else{
-        [self pauseRecord];
-    }
-}
 
 #pragma mark - 录音开始
 -(void)startRecord{
@@ -84,13 +73,14 @@ static NSString * const  JLAudio =  @"JLAudio";
 
 #pragma mark - 录音结束
 - (void)endRecord{
+    
     if (self.audioRecorder.isRecording||(!self.audioRecorder.isRecording&&_nowPause)) {
         [self.audioRecorder stop];
         self.audioRecorder = nil;
         
-        if ([self.delegate respondsToSelector:@selector(wavComplete)]) {
-            [self.delegate wavComplete];
-        }
+//        if ([self.delegate respondsToSelector:@selector(wavComplete)]) {
+//            [self.delegate wavComplete];
+//        }
         
     }
     

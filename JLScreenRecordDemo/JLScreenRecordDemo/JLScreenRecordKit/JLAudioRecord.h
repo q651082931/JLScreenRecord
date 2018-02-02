@@ -6,7 +6,7 @@
 #import <CoreAudio/CoreAudioTypes.h>
 
 @protocol JLAudioRecordDelegate<NSObject>
--(void)wavComplete;
+//-(void)wavComplete;
 @end
 
 

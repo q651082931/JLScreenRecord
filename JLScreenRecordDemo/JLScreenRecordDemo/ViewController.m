@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "JLScreenRecorder.h"
+#import "JLRecorderManager.h"
 #import "OpenGLView.h"
 #import "HiARCapture.h"
 #import <MediaPlayer/MediaPlayer.h>
@@ -38,7 +38,7 @@
     
 }
 - (void)initView{
-    [JLScreenRecorder sharedInstance];
+    [JLRecorderManager sharedInstance];
     [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
     
 
@@ -131,7 +131,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
 
-            [[JLScreenRecorder sharedInstance]startRecording];
+            [[JLRecorderManager sharedInstance]startRecording];
             
         });
         
@@ -140,7 +140,7 @@
         
     }else if (ges.state == UIGestureRecognizerStateEnded){
         
-            [[JLScreenRecorder sharedInstance]stopRecordingWithCompletion:^(NSString *path) {
+            [[JLRecorderManager sharedInstance]stopRecordingWithCompletion:^(NSString *path) {
                 
                 MPMoviePlayerController * playerVC = [[MPMoviePlayerController alloc]initWithContentURL:[NSURL fileURLWithPath:path]];
                 
@@ -166,7 +166,7 @@
 - (void)recordScreenfail{
     
     
-    [[JLScreenRecorder sharedInstance]stopRecordingWithCompletion:^(NSString *path) {
+    [[JLRecorderManager sharedInstance]stopRecordingWithCompletion:^(NSString *path) {
         
     }];
 }

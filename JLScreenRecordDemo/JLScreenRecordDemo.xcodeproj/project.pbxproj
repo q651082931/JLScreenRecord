@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		81136DAF20247FAB001B203C /* JLRecorderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 81136DAE20247FAB001B203C /* JLRecorderManager.m */; };
 		817417982024098F002423D3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417972024098F002423D3 /* AppDelegate.m */; };
 		8174179B2024098F002423D3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8174179A2024098F002423D3 /* ViewController.m */; };
 		8174179E2024098F002423D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8174179C2024098F002423D3 /* Main.storyboard */; };
@@ -27,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		81136DAD20247FAB001B203C /* JLRecorderManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JLRecorderManager.h; sourceTree = "<group>"; };
+		81136DAE20247FAB001B203C /* JLRecorderManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JLRecorderManager.m; sourceTree = "<group>"; };
 		817417932024098F002423D3 /* JLScreenRecordDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JLScreenRecordDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		817417962024098F002423D3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		817417972024098F002423D3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -124,6 +127,8 @@
 				817417AD20240F90002423D3 /* JLCaptureUtilities.m */,
 				817417AF20240F90002423D3 /* JLScreenRecorder.h */,
 				817417AE20240F90002423D3 /* JLScreenRecorder.m */,
+				81136DAD20247FAB001B203C /* JLRecorderManager.h */,
+				81136DAE20247FAB001B203C /* JLRecorderManager.m */,
 			);
 			path = JLScreenRecordKit;
 			sourceTree = "<group>";
@@ -203,6 +208,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				817417BF2024128D002423D3 /* HiARCapture.m in Sources */,
+				81136DAF20247FAB001B203C /* JLRecorderManager.m in Sources */,
 				817417D520244A99002423D3 /* AGLKVertexAttribArrayBuffer.m in Sources */,
 				817417D320244A99002423D3 /* glViewController.m in Sources */,
 				8174179B2024098F002423D3 /* ViewController.m in Sources */,
