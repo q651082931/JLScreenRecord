@@ -19,6 +19,10 @@
 		817417B820240FA1002423D3 /* OpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417B720240FA1002423D3 /* OpenGLView.m */; };
 		817417BF2024128D002423D3 /* HiARCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417BE2024128D002423D3 /* HiARCapture.m */; };
 		817417C220241BD1002423D3 /* UIView+UIView___Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417C020241BD1002423D3 /* UIView+UIView___Extension.m */; };
+		817417D320244A99002423D3 /* glViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417CE20244A98002423D3 /* glViewController.m */; };
+		817417D420244A99002423D3 /* vertex.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 817417CF20244A98002423D3 /* vertex.vsh */; };
+		817417D520244A99002423D3 /* AGLKVertexAttribArrayBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417D020244A98002423D3 /* AGLKVertexAttribArrayBuffer.m */; };
+		817417D620244A99002423D3 /* fragment.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 817417D220244A98002423D3 /* fragment.fsh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +49,12 @@
 		817417BE2024128D002423D3 /* HiARCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HiARCapture.m; sourceTree = "<group>"; };
 		817417C020241BD1002423D3 /* UIView+UIView___Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+UIView___Extension.m"; sourceTree = "<group>"; };
 		817417C120241BD1002423D3 /* UIView+UIView___Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UIView___Extension.h"; sourceTree = "<group>"; };
+		817417CD20244A97002423D3 /* AGLKVertexAttribArrayBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLKVertexAttribArrayBuffer.h; sourceTree = "<group>"; };
+		817417CE20244A98002423D3 /* glViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = glViewController.m; path = "../../../../Downloads/OpenGLES_DEMO-master/deleteLater——openGLES/glViewController.m"; sourceTree = "<group>"; };
+		817417CF20244A98002423D3 /* vertex.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = vertex.vsh; sourceTree = "<group>"; };
+		817417D020244A98002423D3 /* AGLKVertexAttribArrayBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLKVertexAttribArrayBuffer.m; sourceTree = "<group>"; };
+		817417D120244A98002423D3 /* glViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glViewController.h; path = "../../../../Downloads/OpenGLES_DEMO-master/deleteLater——openGLES/glViewController.h"; sourceTree = "<group>"; };
+		817417D220244A98002423D3 /* fragment.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = fragment.fsh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +97,12 @@
 				817417BC2024128C002423D3 /* HiARCapturePreview.h */,
 				817417C120241BD1002423D3 /* UIView+UIView___Extension.h */,
 				817417C020241BD1002423D3 /* UIView+UIView___Extension.m */,
+				817417CD20244A97002423D3 /* AGLKVertexAttribArrayBuffer.h */,
+				817417D020244A98002423D3 /* AGLKVertexAttribArrayBuffer.m */,
+				817417D220244A98002423D3 /* fragment.fsh */,
+				817417D120244A98002423D3 /* glViewController.h */,
+				817417CE20244A98002423D3 /* glViewController.m */,
+				817417CF20244A98002423D3 /* vertex.vsh */,
 				8174179C2024098F002423D3 /* Main.storyboard */,
 				8174179F2024098F002423D3 /* Assets.xcassets */,
 				817417A12024098F002423D3 /* LaunchScreen.storyboard */,
@@ -172,6 +188,8 @@
 				817417A32024098F002423D3 /* LaunchScreen.storyboard in Resources */,
 				817417A02024098F002423D3 /* Assets.xcassets in Resources */,
 				8174179E2024098F002423D3 /* Main.storyboard in Resources */,
+				817417D620244A99002423D3 /* fragment.fsh in Resources */,
+				817417D420244A99002423D3 /* vertex.vsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +201,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				817417BF2024128D002423D3 /* HiARCapture.m in Sources */,
+				817417D520244A99002423D3 /* AGLKVertexAttribArrayBuffer.m in Sources */,
+				817417D320244A99002423D3 /* glViewController.m in Sources */,
 				8174179B2024098F002423D3 /* ViewController.m in Sources */,
 				817417B320240F91002423D3 /* JLCaptureUtilities.m in Sources */,
 				817417A62024098F002423D3 /* main.m in Sources */,

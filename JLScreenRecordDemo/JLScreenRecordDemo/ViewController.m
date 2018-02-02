@@ -12,6 +12,7 @@
 #import "HiARCapture.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "UIView+UIView___Extension.h"
+#import "glViewController.h"
 
 @interface ViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate>
 
@@ -23,6 +24,7 @@
 @property(nonatomic,weak)UIButton * button_record;
 @property(nonatomic,strong)MPMoviePlayerController * playVC;
 @property(nonatomic,strong)UIButton * button_return;
+@property(nonatomic,strong)glViewController * glVC;
 
 @end
 
@@ -39,6 +41,22 @@
     
     [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
     
+
+    
+    
+    self.button_return = [[UIButton alloc] init];
+    
+    [self.button_return setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    self.button_return.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+    [self.button_return sizeToFit];
+    [self.button_return addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+    self.button_return.hidden = YES;
+    [self.view addSubview:self.button_return];
+    self.glVC = [[glViewController alloc]init];
+    self.glVC.view.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.glVC.view];
+    
+    
     UIButton * button_record = [[UIButton alloc]init];
     self.button_record = button_record;
     
@@ -51,15 +69,6 @@
     [self.button_record addGestureRecognizer:longPress];
     
     
-    self.button_return = [[UIButton alloc] init];
-    
-    [self.button_return setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    self.button_return.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
-    [self.button_return sizeToFit];
-    [self.button_return addTarget:self action:@selector(backButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-    self.button_return.hidden = YES;
-    [self.view addSubview:self.button_return];
-    
 }
 
 - (void)viewDidLayoutSubviews{
@@ -68,6 +77,7 @@
     self.button_record.centerX = self.view.width * 0.5;
     self.button_record.y = self.view.height - 40 - self.button_record.height;
     self.button_return.origin = CGPointMake(30, 30);
+    self.glVC.view.frame = self.view.bounds;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
