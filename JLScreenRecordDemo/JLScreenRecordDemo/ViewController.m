@@ -14,7 +14,7 @@
 #import "UIView+UIView___Extension.h"
 #import "glViewController.h"
 
-@interface ViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface ViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate,JLRecorderManagerDelegate>
 
 @property(nonatomic,weak)OpenGLView * openGLView;
 
@@ -38,7 +38,7 @@
     
 }
 - (void)initView{
-    [JLRecorderManager sharedInstance];
+    [JLRecorderManager sharedInstance].delegate = self;
     [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
     
 
@@ -170,9 +170,21 @@
         
     }];
 }
+#pragma mark - /*************** JLRecorderManagerDelegate ***************/
 
 
+- (void)JLRecorderManagerStartRecord:(JLRecorderManager *)recorderManager{
+    
+    NSLog(@"开始录屏");
+}
 
+- (void)JLRecorderManagerRecording:(JLRecorderManager *)recorderManager recordTime:(NSTimeInterval )recordTime{
+    NSLog(@"更新录屏----时间 %f",recordTime);
+}
+
+- (void)JLRecorderManagerStopRecord:(JLRecorderManager *)recorderManager recordTime:(NSTimeInterval )recordTime{
+    NSLog(@"结束录屏----时间 %f",recordTime);
+}
 
 #pragma mark - /************************** Camera Settings **************************/
 

@@ -11,8 +11,6 @@ typedef void (^VideoCompletionBlock)(NSString * path);
 @property (nonatomic, readonly) BOOL isRecording;
 @property (nonatomic, weak) id <JLScreenRecorderDelegate> delegate;
 
-@property(nonatomic,assign)NSInteger maxRecordTime;//最大录屏时间 defalut 60s
-@property(nonatomic,assign)NSInteger minRecordTime;//最大录屏时间 defalut 60s
 @property (strong, nonatomic) NSURL *videoURL;//视频文件目标目标地址,不设置也可以
 @property(nonatomic,assign)CGFloat top_edge; //录屏范围上边距
 @property(nonatomic,assign)CGFloat buttom_edge;//录屏范围下边距

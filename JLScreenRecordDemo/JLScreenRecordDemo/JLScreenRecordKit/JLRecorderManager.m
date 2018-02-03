@@ -17,6 +17,8 @@
 @property(nonatomic,strong) JLAudioRecord * audioRecord;
 @property(nonatomic,copy) VideoCompletionBlock completionBlock;
 @property(nonatomic,strong)JLScreenRecorder * screenRecord;
+@property(nonatomic,strong)NSTimer * timer_record_time;
+@property(nonatomic,assign)NSTimeInterval timer_count ;
 
 @end
 
@@ -27,6 +29,8 @@
 #pragma mark - initializers
 static dispatch_once_t once;
 static JLRecorderManager * sharedInstance;
+
+
 + (instancetype)sharedInstance {
     
     
@@ -42,7 +46,7 @@ static JLRecorderManager * sharedInstance;
 }
 
 - (void)dealloc{
-    
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
     [self clearFile];
     
 }
@@ -54,6 +58,10 @@ static JLRecorderManager * sharedInstance;
         self.screenRecord = [[JLScreenRecorder alloc]init];
         self.audioRecord = [[JLAudioRecord alloc]init];
         [self.audioRecord prepareRecord];
+        self.minRecordTime = 3;
+        self.maxRecordTime = 60;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioSessionWasInterrupted:) name:AVAudioSessionInterruptionNotification object:nil];
     }
     
     return self;
@@ -66,22 +74,39 @@ static JLRecorderManager * sharedInstance;
 - (BOOL)startRecording
 {
     
+    if (self.isRecording) {
+        return NO ;
+    }
+    [self starTimer];
     [self.audioRecord beginRecord];
-
-    return  [self.screenRecord startRecording];
+    _isRecording =  [self.screenRecord startRecording];
+    
+    if ([self.delegate respondsToSelector:@selector(JLRecorderManagerStartRecord:)]) {
+        
+        [self.delegate JLRecorderManagerStartRecord:self];
+    }
+    
+    return  self.isRecording ;
     
     
 }
 
 - (void)stopRecordingWithCompletion:(VideoCompletionBlock)completionBlock;
 {
+    if (self.isRecording == NO) {
+        return;
+    }
+    if (completionBlock) {
+        self.completionBlock = completionBlock;
+    }
     self.completionBlock = completionBlock;
+    [self stopTimer];
     [self.audioRecord endRecord];
     __weak typeof(self) weakSelf = self;
     [self.screenRecord stopRecordingWithCompletion:^(NSURL *vedioUrl) {
        
         [JLCaptureUtilities mergeVideo:vedioUrl andAudio:weakSelf.audioRecord.recordFilePath andTarget:weakSelf andAction:@selector(mergedidFinish:WithError:)];
-        [weakSelf.screenRecord clearFile];
+        [weakSelf clearFile];
         
     }];
     
@@ -89,6 +114,11 @@ static JLRecorderManager * sharedInstance;
 
 - (void)mergedidFinish:(NSString *)videoPath WithError:(NSError *)error
 {
+    _isRecording = NO;
+    if ([self.delegate respondsToSelector:@selector(JLRecorderManagerStopRecord:recordTime:)]) {
+        
+        [self.delegate JLRecorderManagerStopRecord:self recordTime:self.timer_count];
+    }
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.completionBlock) self.completionBlock(videoPath);
     });
@@ -104,6 +134,61 @@ static JLRecorderManager * sharedInstance;
     _buttom_edge = buttom_edge;
     self.screenRecord.buttom_edge = buttom_edge;
     
+    
+}
+
+- (void)audioSessionWasInterrupted:(NSNotification *)notification{
+    
+    NSLog(@"the notification is %@",notification);
+    if (AVAudioSessionInterruptionTypeBegan == [notification.userInfo[AVAudioSessionInterruptionTypeKey] intValue])
+    {
+        
+        [self stopRecordingWithCompletion:nil];
+        NSLog(@"begin");
+    }
+    else if (AVAudioSessionInterruptionTypeEnded == [notification.userInfo[AVAudioSessionInterruptionTypeKey] intValue])
+    {
+        NSLog(@"begin - end");
+    }
+    
+    
+}
+
+#pragma mark/******************* Timer *******************/
+
+
+- (void)starTimer{
+    
+    [self stopTimer];
+    self.timer_count = 0;
+    self.timer_record_time = [NSTimer timerWithTimeInterval:0.1 target:self selector:@selector(updateTimer) userInfo:nil repeats:YES];
+    
+    [[NSRunLoop mainRunLoop]addTimer:self.timer_record_time forMode:NSRunLoopCommonModes];
+    
+}
+
+
+- (void)stopTimer{
+    
+    [self.timer_record_time invalidate];
+    self.timer_record_time = nil;
+    
+}
+
+- (void)updateTimer{
+    
+    self.timer_count+=0.1;
+    
+    if ([self.delegate respondsToSelector:@selector(JLRecorderManagerRecording:recordTime:)]) {
+        
+        [self.delegate JLRecorderManagerRecording:self recordTime:self.timer_count];
+    }
+
+    
+    if (self.timer_count > self.maxRecordTime) {
+        
+        [self stopRecordingWithCompletion:nil];
+    }
     
 }
 @end

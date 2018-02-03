@@ -70,8 +70,7 @@
         _frameRenderingSemaphore = dispatch_semaphore_create(1);
         _pixelAppendSemaphore = dispatch_semaphore_create(1);
 //        self.image_water = [UIImage ARImageNamed:@"WechatIMG1003"];
-        self.minRecordTime = 3;
-        self.maxRecordTime = 60;
+
         
         [self setUpWriter];
         
