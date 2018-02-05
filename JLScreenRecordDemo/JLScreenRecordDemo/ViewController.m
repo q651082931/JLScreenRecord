@@ -14,7 +14,7 @@
 #import "UIView+UIView___Extension.h"
 #import "glViewController.h"
 
-@interface ViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate,JLRecorderManagerDelegate>
+@interface ViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate,JLRecorderManagerDelegate,AVCaptureMetadataOutputObjectsDelegate>
 
 @property(nonatomic,weak)OpenGLView * openGLView;
 
@@ -26,6 +26,8 @@
 @property(nonatomic,strong)UIButton * button_return;
 @property(nonatomic,strong)glViewController * glVC;
 
+@property (nonatomic, strong) AVCaptureSession *session;
+
 @end
 
 @implementation ViewController
@@ -35,14 +37,20 @@
    
     [self initCamera];
     [self initView];
-    
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+        if (granted) {
+            
+        } else {
+            
+        }
+    }];
+
 }
 - (void)initView{
     [JLRecorderManager sharedInstance].delegate = self;
-    [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
-    
 
-    
+
+
     
     self.button_return = [[UIButton alloc] init];
     
@@ -70,7 +78,10 @@
     [self.button_record addGestureRecognizer:longPress];
     
     
+    
 }
+
+
 
 - (void)dealloc{
     [self deinitCamera];
@@ -209,8 +220,26 @@
     if ( self.capture.setupResult != AVCaptureSetupResultSuccess ) {
         return;
     }
+    __weak typeof(self) weakSelf = self;
+    
+    AVCaptureMetadataOutput * metedataOutput = [[AVCaptureMetadataOutput alloc]init];
+    if ([self.capture.session canAddOutput:metedataOutput]) {
+
+        [self.capture.session addOutput:metedataOutput];
+
+
+        NSLog(@"metedataOutput.availableMetadataObjectTypes-------%@",metedataOutput.availableMetadataObjectTypes);
+        if ([metedataOutput.availableMetadataObjectTypes containsObject:AVMetadataObjectTypeQRCode]) {
+            metedataOutput.metadataObjectTypes=@[AVMetadataObjectTypeQRCode];
+        }
+        
+        [metedataOutput setMetadataObjectsDelegate:weakSelf queue:dispatch_get_main_queue()];
+    }
     
     [self.capture.session beginConfiguration];
+    
+
+
     /*
      Use the status bar orientation as the initial video orientation. Subsequent orientation changes are
      handled by -[AVCamCameraViewController viewWillTransitionToSize:withTransitionCoordinator:].
@@ -225,7 +254,7 @@
     self.captureVideoDataOutput = [[AVCaptureVideoDataOutput alloc] init];
     [self.captureVideoDataOutput setVideoSettings:@{(id)kCVPixelBufferPixelFormatTypeKey:
                                                         [NSNumber numberWithInt:kCVPixelFormatType_32BGRA]}];
-    __weak typeof(self) weakSelf = self;
+    
     [self.captureVideoDataOutput setSampleBufferDelegate:weakSelf queue:_captureQueue];
     
     if ([self.capture.session canAddOutput:self.captureVideoDataOutput]) {
@@ -239,10 +268,15 @@
         return;
     }
     
+
+    
     AVCaptureConnection *videoConnection = [self.captureVideoDataOutput connectionWithMediaType:AVMediaTypeVideo];
     if ([videoConnection isVideoOrientationSupported]) {
         videoConnection.videoOrientation = AVCaptureVideoOrientationLandscapeRight; // HiAR SDK only support landscape
     }
+    
+    
+
     
     [self.capture.session commitConfiguration];
 }
@@ -301,5 +335,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [self.openGLView processWithSampleBuffer:sampleBuffer];
 
 }
+-(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
+    if (metadataObjects.count>0) {
+        
+        AVMetadataMachineReadableCodeObject *metadataObject = metadataObjects[0];
+        
+        NSLog(@"%@",metadataObject.stringValue);
+    }
+}
+
 
 @end

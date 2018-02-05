@@ -87,9 +87,8 @@
          take a long time. We dispatch session setup to the sessionQueue so
          that the main queue isn't blocked, which keeps the UI responsive.
          */
-        dispatch_async( _sessionQueue, ^{
-            [self configureSession];
-        } );
+        [self configureSession];
+
     }
     return self;
 }

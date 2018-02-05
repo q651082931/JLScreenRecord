@@ -76,10 +76,10 @@
         
         AVAssetExportSession *exportSession = [[AVAssetExportSession alloc]initWithAsset:avAsset
                                                                               presetName:AVAssetExportPresetHighestQuality];
-        NSDateFormatter* formater = [[NSDateFormatter alloc] init];
-        [formater setDateFormat:@"yyyy-MM-dd-HH:mm:ss"];
-        NSString* _mp4Path = [NSHomeDirectory() stringByAppendingFormat:@"/Documents/output-%@.mp4", [formater stringFromDate:[NSDate date]]];
-        
+        NSString* _mp4Path = [NSHomeDirectory() stringByAppendingFormat:@"/Documents/output-JLViode.mp4"];
+        if ([[NSFileManager defaultManager]fileExistsAtPath:_mp4Path]) {
+            [[NSFileManager defaultManager]removeItemAtPath:_mp4Path error:nil];
+        }
         exportSession.outputURL = [NSURL fileURLWithPath: _mp4Path];
         exportSession.shouldOptimizeForNetworkUse = YES;
         exportSession.outputFileType = AVFileTypeMPEG4;

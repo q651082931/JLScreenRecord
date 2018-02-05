@@ -161,8 +161,8 @@
                                                 error:&error];
     NSParameterAssert(_videoWriter);
     
-    NSInteger pixelNumber = _viewSize.width * _viewSize.height * _scale;
-    NSDictionary* videoCompression = @{AVVideoAverageBitRateKey: @(pixelNumber * 6)};
+    NSInteger pixelNumber = _viewSize.width * _viewSize.height * 3;
+    NSDictionary* videoCompression = @{AVVideoAverageBitRateKey: @(pixelNumber * 4)};
     
     NSDictionary* videoSettings = @{AVVideoCodecKey: AVVideoCodecH264,
                                     AVVideoWidthKey: [NSNumber numberWithInt:_viewSize.width*_scale],
