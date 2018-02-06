@@ -222,23 +222,21 @@
     }
     __weak typeof(self) weakSelf = self;
     
+
+    
+    [self.capture.session beginConfiguration];
+    
     AVCaptureMetadataOutput * metedataOutput = [[AVCaptureMetadataOutput alloc]init];
     if ([self.capture.session canAddOutput:metedataOutput]) {
 
         [self.capture.session addOutput:metedataOutput];
 
-
-        NSLog(@"metedataOutput.availableMetadataObjectTypes-------%@",metedataOutput.availableMetadataObjectTypes);
         if ([metedataOutput.availableMetadataObjectTypes containsObject:AVMetadataObjectTypeQRCode]) {
             metedataOutput.metadataObjectTypes=@[AVMetadataObjectTypeQRCode];
         }
-        
+
         [metedataOutput setMetadataObjectsDelegate:weakSelf queue:dispatch_get_main_queue()];
     }
-    
-    [self.capture.session beginConfiguration];
-    
-
 
     /*
      Use the status bar orientation as the initial video orientation. Subsequent orientation changes are
