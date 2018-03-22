@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		42DDBE2B2063965100478C43 /* glViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DDBE2A2063965100478C43 /* glViewController.m */; };
 		81136DAF20247FAB001B203C /* JLRecorderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 81136DAE20247FAB001B203C /* JLRecorderManager.m */; };
 		817417982024098F002423D3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417972024098F002423D3 /* AppDelegate.m */; };
 		8174179B2024098F002423D3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8174179A2024098F002423D3 /* ViewController.m */; };
@@ -20,7 +21,6 @@
 		817417B820240FA1002423D3 /* OpenGLView.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417B720240FA1002423D3 /* OpenGLView.m */; };
 		817417BF2024128D002423D3 /* HiARCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417BE2024128D002423D3 /* HiARCapture.m */; };
 		817417C220241BD1002423D3 /* UIView+UIView___Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417C020241BD1002423D3 /* UIView+UIView___Extension.m */; };
-		817417D320244A99002423D3 /* glViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417CE20244A98002423D3 /* glViewController.m */; };
 		817417D420244A99002423D3 /* vertex.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 817417CF20244A98002423D3 /* vertex.vsh */; };
 		817417D520244A99002423D3 /* AGLKVertexAttribArrayBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 817417D020244A98002423D3 /* AGLKVertexAttribArrayBuffer.m */; };
 		817417D620244A99002423D3 /* fragment.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 817417D220244A98002423D3 /* fragment.fsh */; };
@@ -28,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		42DDBE292063965100478C43 /* glViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glViewController.h; sourceTree = "<group>"; };
+		42DDBE2A2063965100478C43 /* glViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = glViewController.m; sourceTree = "<group>"; };
 		81136DAD20247FAB001B203C /* JLRecorderManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JLRecorderManager.h; sourceTree = "<group>"; };
 		81136DAE20247FAB001B203C /* JLRecorderManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JLRecorderManager.m; sourceTree = "<group>"; };
 		817417932024098F002423D3 /* JLScreenRecordDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JLScreenRecordDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -53,10 +55,8 @@
 		817417C020241BD1002423D3 /* UIView+UIView___Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+UIView___Extension.m"; sourceTree = "<group>"; };
 		817417C120241BD1002423D3 /* UIView+UIView___Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+UIView___Extension.h"; sourceTree = "<group>"; };
 		817417CD20244A97002423D3 /* AGLKVertexAttribArrayBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGLKVertexAttribArrayBuffer.h; sourceTree = "<group>"; };
-		817417CE20244A98002423D3 /* glViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = glViewController.m; path = "../../../../Downloads/OpenGLES_DEMO-master/deleteLater——openGLES/glViewController.m"; sourceTree = "<group>"; };
 		817417CF20244A98002423D3 /* vertex.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = vertex.vsh; sourceTree = "<group>"; };
 		817417D020244A98002423D3 /* AGLKVertexAttribArrayBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGLKVertexAttribArrayBuffer.m; sourceTree = "<group>"; };
-		817417D120244A98002423D3 /* glViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glViewController.h; path = "../../../../Downloads/OpenGLES_DEMO-master/deleteLater——openGLES/glViewController.h"; sourceTree = "<group>"; };
 		817417D220244A98002423D3 /* fragment.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = fragment.fsh; sourceTree = "<group>"; };
 		817417D720245123002423D3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,8 +103,8 @@
 				817417CD20244A97002423D3 /* AGLKVertexAttribArrayBuffer.h */,
 				817417D020244A98002423D3 /* AGLKVertexAttribArrayBuffer.m */,
 				817417D220244A98002423D3 /* fragment.fsh */,
-				817417D120244A98002423D3 /* glViewController.h */,
-				817417CE20244A98002423D3 /* glViewController.m */,
+				42DDBE292063965100478C43 /* glViewController.h */,
+				42DDBE2A2063965100478C43 /* glViewController.m */,
 				817417CF20244A98002423D3 /* vertex.vsh */,
 				8174179C2024098F002423D3 /* Main.storyboard */,
 				8174179F2024098F002423D3 /* Assets.xcassets */,
@@ -210,12 +210,12 @@
 				817417BF2024128D002423D3 /* HiARCapture.m in Sources */,
 				81136DAF20247FAB001B203C /* JLRecorderManager.m in Sources */,
 				817417D520244A99002423D3 /* AGLKVertexAttribArrayBuffer.m in Sources */,
-				817417D320244A99002423D3 /* glViewController.m in Sources */,
 				8174179B2024098F002423D3 /* ViewController.m in Sources */,
 				817417B320240F91002423D3 /* JLCaptureUtilities.m in Sources */,
 				817417A62024098F002423D3 /* main.m in Sources */,
 				817417B420240F91002423D3 /* JLScreenRecorder.m in Sources */,
 				817417982024098F002423D3 /* AppDelegate.m in Sources */,
+				42DDBE2B2063965100478C43 /* glViewController.m in Sources */,
 				817417B820240FA1002423D3 /* OpenGLView.m in Sources */,
 				817417C220241BD1002423D3 /* UIView+UIView___Extension.m in Sources */,
 				817417B520240F91002423D3 /* JLAudioRecord.m in Sources */,
